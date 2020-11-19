@@ -1,0 +1,5 @@
+#.flaskenv
+FLASK_APP=personal_blog
+FLASK_ENV=development
+FLASK_RUN_PORT=8080
+SQLALCHEMY_TRACK_MODIFICATIONS=False
