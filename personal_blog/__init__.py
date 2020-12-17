@@ -1,30 +1,38 @@
 from flask import Flask
+from flask_mail import Mail
+from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from personal_blog.config import Config
+from flask_login import LoginManager
+from config import config
 
-
+mail = Mail()
+moment = Moment()
 db = SQLAlchemy()
-migrate = Migrate()
+
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
 
 
-def create_app(config_class=Config):
+def create_app(config_name):
     app = Flask(__name__)
-    app.config.from_object(Config)
+    app.config.from_object(config[config_name])
+    config[config_name].init_app(app)
 
+    mail.init_app(app)
+    moment.init_app(app)
     db.init_app(app)
-    migrate.init_app(app, db)
-
-    from .users import users as user_blueprint
-    app.register_blueprint(user_blueprint)
-
-    from .posts import posts as post_blueprint
-    app.register_blueprint(post_blueprint)
+    login_manager.init_app(app)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
+    from .posts import posts as post_blueprint
+    app.register_blueprint(post_blueprint, url_prefix='/post')
+
     from .errors import errors as error_blueprint
-    app.register_blueprint(error_blueprint)
+    app.register_blueprint(error_blueprint, url_prefix='/error')
 
     return app

@@ -14,11 +14,12 @@ class Permission:
 
 
 class Role(db.Model):
-    id = db.column(db.Integer)
-    name = db.Column(db.String(20), unique=True, nullable=False)
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
     default = db.Column(db.Boolean, default=False, index=True)
     permissions = db.Column(db.Integer)
-    users = db.relationship('User', backref="role", lazy='dynamic')
+    users = db.relationship('User', backref='role', lazy='dynamic')
 
     def __init__(self, **kwargs):
         super(Role, self).__init__(**kwargs)
@@ -66,36 +67,38 @@ class Role(db.Model):
 
 
 class Post(db.Model):
+    __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Integer, unique=True, nullable=False)
     body = db.Column(db.Text, nullable=False)
-    pub_date = db.column(db.DateTime, nullable=False,
+    pub_date = db.Column(db.DateTime, nullable=False,
                          default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('category.id'),
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'),
                             nullable=False)
-    category = db.relationship('Category',
-                               backref=db.backref('posts', lazy=True))
 
     def __repr__(self):
         return "{} : {}".format(self.title, self.body)
 
 
 class Category(db.Model):
+    __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
+    posts = db.relationship('Post', backref=db.backref('category', lazy=True))
 
     def __repr__(self):
         return "Category : {}".format(self.name)
 
 
 class User(UserMixin, db.Model):
+    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(60), unique=True, nullable=False)
-    username = db.Column(db.String(120), unique=True, nullable=False)
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), nullable=False)
-    password_hash = db.Column(db.String(128), nullable=False)
-    confirmed = db.COlumn(db.Boolean, default=False)
+    email = db.Column(db.String(64), unique=True, index=True)
+    username = db.Column(db.String(64), unique=True, index=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    password_hash = db.Column(db.String(128))
+    confirmed = db.Column(db.Boolean, default=False)
     image_file = db.Column(db.String(20), nullable=False,
                            default='default.jpg')
     posts = db.relationship('Post', backref=db.backref("author", lazy=True))
