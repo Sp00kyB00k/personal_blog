@@ -1,5 +1,8 @@
 import os
+from dotenv import load_dotenv
+
 basedir = os.path.abspath(os.path.dirname(__file__))
+load_dotenv(os.path.join(basedir, '.env'))
 
 
 class Config:
@@ -14,6 +17,7 @@ class Config:
     MAIL_SENDER = 'Admin <SleepyMarauder@example.com>'
     ADMIN = os.environ.get('ADMIN')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    PYTHON_DONT_WRITE_BYTECODE = False
 
     @staticmethod
     def init_app(app):

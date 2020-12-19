@@ -33,7 +33,7 @@ class Role(db.Model):
             'Writer': [Permission.COMMENT, Permission.WRITE],
             'Moderator': [Permission.COMMENT, Permission.WRITE,
                           Permission.MODERATE],
-            'Admin': [Permission.COMMENT, Permission.WRITE,
+            'Administrator': [Permission.COMMENT, Permission.WRITE,
                       Permission.MODERATE, Permission.ADMIN]
         }
         default_role = 'User'
