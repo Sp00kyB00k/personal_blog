@@ -34,7 +34,7 @@ class Role(db.Model):
             'Moderator': [Permission.COMMENT, Permission.WRITE,
                           Permission.MODERATE],
             'Administrator': [Permission.COMMENT, Permission.WRITE,
-                      Permission.MODERATE, Permission.ADMIN]
+                              Permission.MODERATE, Permission.ADMIN]
         }
         default_role = 'User'
         for r in roles:
@@ -71,11 +71,9 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Integer, unique=True, nullable=False)
     body = db.Column(db.Text, nullable=False)
-    pub_date = db.Column(db.DateTime, nullable=False,
-                         default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'),
-                            nullable=False)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
     def __repr__(self):
         return "{} : {}".format(self.title, self.body)
@@ -101,6 +99,11 @@ class User(UserMixin, db.Model):
     confirmed = db.Column(db.Boolean, default=False)
     image_file = db.Column(db.String(20), nullable=False,
                            default='default.jpg')
+    name = db.Column(db.String(64))
+    location = db.Column(db.String(64))
+    about_me = db.Column(db.Text())
+    member_since = db.Column(db.DateTime(), default=datetime.utcnow)
+    last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
     posts = db.relationship('Post', backref=db.backref("author", lazy=True))
 
     def __init__(self, **kwargs):
@@ -183,6 +186,10 @@ class User(UserMixin, db.Model):
 
     def can(self, perm):
         return self.role is not None and self.role.has_permission(perm)
+
+    def ping(self):
+        self.last_seen = datetime.utcnow()
+        db.session.add(self)
 
     def is_administrator(self):
         return self.can(Permission.ADMIN)

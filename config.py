@@ -13,8 +13,8 @@ class Config:
         ['true', 'on', '1']
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    MAIL_SUBJECT_PREFIX = '[SleepyMarauder]'
-    MAIL_SENDER = 'Admin <SleepyMarauder@example.com>'
+    MAIL_SUBJECT_PREFIX = '[commandreverse]'
+    MAIL_SENDER = 'Admin <commandreverse@example.com>'
     ADMIN = os.environ.get('ADMIN')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PYTHON_DONT_WRITE_BYTECODE = False
