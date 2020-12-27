@@ -11,7 +11,8 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-        
+        {{ moment.include_jquery() }}
+        {{ moment.include_moment() }}
         {% if title %}
             <title>Revert - {{ title }}</title>
         {% else %}

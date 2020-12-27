@@ -73,7 +73,7 @@ class Post(db.Model):
     body = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    categories = db.relationship('Category', backref='post', lazy='dynamic')
 
     def __repr__(self):
         return "{} : {}".format(self.title, self.body)
@@ -82,8 +82,8 @@ class Post(db.Model):
 class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False)
-    posts = db.relationship('Post', backref=db.backref('category', lazy=True))
+    name = db.Column(db.String(50))
+    category_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
 
     def __repr__(self):
         return "Category : {}".format(self.name)
@@ -104,7 +104,7 @@ class User(UserMixin, db.Model):
     about_me = db.Column(db.Text())
     member_since = db.Column(db.DateTime(), default=datetime.utcnow)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
-    posts = db.relationship('Post', backref=db.backref("author", lazy=True))
+    posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
