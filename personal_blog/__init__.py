@@ -30,7 +30,7 @@ def create_app(config_name):
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
     from .posts import posts as post_blueprint
-    app.register_blueprint(post_blueprint, url_prefix='/post')
+    app.register_blueprint(post_blueprint, url_prefix='/posts')
 
     from .errors import errors as error_blueprint
     app.register_blueprint(error_blueprint, url_prefix='/error')
