@@ -21,7 +21,7 @@
     </head>
     <body>
       <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
           <div class="container">
             <a class="navbar-brand mr-4" href="/">Revert</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +36,7 @@
                 {% if current_user.is_authenticated %}
                   <a class="nav-item nav-link" href="{{ url_for('main.user', username=current_user.username) }}">Profile</a>
                   {% if current_user.can(Permission.WRITE) %}
-                    <a class="nav-item nav-link" href="{{ url_for('posts.create_post') }}">New Post</a>
+                    <a class="nav-item nav-link" href="{{ url_for('posts.write_post') }}">New Post</a>
                   {% endif %}
                   <a class="nav-item nav-link" href="{{ url_for('auth.change_password') }}">Change Password</a>
                   <a class="nav-item nav-link" href="{{ url_for('auth.change_email_request') }}">Change Email</a>

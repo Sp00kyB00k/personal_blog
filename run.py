@@ -2,7 +2,8 @@ import os
 import click
 from flask_migrate import Migrate
 from personal_blog import create_app, db
-from personal_blog.models import User, Role, Permission
+from personal_blog.models import User, Role, Permission, \
+    AnonymousUser, Post, Category
 
 app = create_app('default')
 migrate = Migrate(app, db)
@@ -10,7 +11,8 @@ migrate = Migrate(app, db)
 
 @app.shell_context_processor
 def make_shell_context():
-    return dict(db=db, User=User, Role=Role, Permission=Permission)
+    return dict(db=db, User=User, AnonymousUser=AnonymousUser, Post=Post,
+                Category=Category, Role=Role, Permission=Permission)
 
 
 @app.cli.command()

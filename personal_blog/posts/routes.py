@@ -14,18 +14,18 @@ def write_post():
     form = PostForm()
     if current_user.can(Permission.WRITE) and form.validate_on_submit():
         post = Post(title=form.title.data,
-                    content=form.content.data,
+                    body=form.body.data,
                     author=current_user._get_current_object())
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for(".index"))
+        return redirect(url_for("main.index"))
     return render_template('posts/create_post.html', form=form)
 
 
 @posts.route("/<int:post_id>")
 def post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('posts/post.html', title=post.title, post=post)
+    return render_template('posts/_post.html', title=post.title, post=post)
 
 
 @posts.route("/<int:post_id>/update", methods=['GET', 'POST'])
