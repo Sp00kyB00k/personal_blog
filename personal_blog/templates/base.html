@@ -11,8 +11,13 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
         <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
         <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <!--
+          Including the initialization of the different extentions
+        -->
         {{ moment.include_jquery() }}
         {{ moment.include_moment() }}
+        {{ pagedown.html_head() }}
+        
         {% if title %}
             <title>Revert - {{ title }}</title>
         {% else %}
@@ -52,19 +57,19 @@
       </header>
       <main role="main" class="container">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-1">
             <!-- 
               Beertje PADDINGton
             -->
           </div>
-          <div class="col-md-6">
+          <div class="col-10">
               {% for message in get_flashed_messages() %}
               <div class="alert alert-warning">
                 <div class="alert">{{ message }}</div>
               {% endfor %}
               {% block content %}{% endblock %}
           </div>
-          <div class="col-md-3">
+          <div class="col-1">
               <!-- 
                   Beertje PADDINGton
               -->

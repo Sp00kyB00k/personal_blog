@@ -22,36 +22,37 @@ def write_post():
     return render_template('posts/create_post.html', form=form)
 
 
-@posts.route("/<int:post_id>")
-def post(post_id):
-    post = Post.query.get_or_404(post_id)
+@posts.route("/<int:id>")
+def post(id):
+    post = Post.query.get_or_404(id)
     return render_template('posts/_post.html', title=post.title, post=post)
 
 
-@posts.route("/<int:post_id>/update", methods=['GET', 'POST'])
+@posts.route("/<int:id>/update", methods=['GET', 'POST'])
 @login_required
-def update_post(post_id):
-    post = Post.query.get_or_404(post_id)
+def update_post(id):
+    post = Post.query.get_or_404(id)
     if post.author != current_user:
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
         post.title = form.title.data
-        post.content = form.content.data
+        post.body = form.body.data
+        db.session.add(post)
         db.session.commit()
         flash('Your post has been updated!', 'success')
-        return redirect(url_for('posts.post', post_id=post.id))
+        return redirect(url_for('posts.post', id=id))
     elif request.method == 'GET':
         form.title.data = post.title
-        form.content.data = post.content
+        form.body.data = post.body
     return render_template('posts/create_post.html', title='Update Post',
                            form=form, legend='Update Post')
 
 
-@posts.route("/<int:post_id>/delete", methods=['POST'])
+@posts.route("/<int:id>/delete", methods=['POST'])
 @login_required
-def delete_post(post_id):
-    post = Post.query.get_or_404(post_id)
+def delete_post(id):
+    post = Post.query.get_or_404(id)
     if post.author != current_user:
         abort(403)
     db.session.delete(post)

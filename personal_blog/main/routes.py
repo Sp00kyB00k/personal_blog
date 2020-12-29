@@ -1,4 +1,5 @@
-from flask import render_template, redirect, url_for, flash, abort, request
+from flask import render_template, redirect, url_for, flash, \
+    abort, request, current_app
 from flask_login import current_user, login_required
 from . import main
 from .forms import EditProfileForm, EditProfileAdminForm
@@ -10,8 +11,8 @@ from ..decorators import admin_required, permission_required
 @main.route('/')
 def index():
     page = request.args.get('page', type=int)
-    posts = Post.query.order_by(Post.timestamp.desc()
-                                ).paginate(page=page, per_page=5)
+    posts = Post.query.order_by(Post.timestamp.desc()).paginate(
+        page=page, per_page=current_app.config['POST_PER_PAGE'])
     return render_template('index.html', posts=posts)
 
 

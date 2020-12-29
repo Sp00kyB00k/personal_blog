@@ -16,6 +16,7 @@ class Config:
     MAIL_SUBJECT_PREFIX = '[commandreverse]'
     MAIL_SENDER = 'Admin <commandreverse@example.com>'
     ADMIN = os.environ.get('ADMIN')
+    POST_PER_PAGE = 25
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PYTHON_DONT_WRITE_BYTECODE = False
 
