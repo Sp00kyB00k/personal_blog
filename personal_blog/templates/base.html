@@ -43,6 +43,9 @@
                   {% if current_user.can(Permission.WRITE) %}
                     <a class="nav-item nav-link" href="{{ url_for('posts.write_post') }}">New Post</a>
                   {% endif %}
+                  {% if current_user.can(Permission.MODERATE) %}
+                  <a class="nav-item nav-link" href="{{ url_for('main.moderate') }}">Moderate Comments</a><
+                  {% endif %}
                   <a class="nav-item nav-link" href="{{ url_for('auth.change_password') }}">Change Password</a>
                   <a class="nav-item nav-link" href="{{ url_for('auth.change_email_request') }}">Change Email</a>
                   <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>

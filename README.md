@@ -19,16 +19,14 @@ Flask-Migrate
 Flask-wtf  
 Flask-Moment  
 Flask-Email  
+Flask-Pagedown
+markdown
+bleach
 
 ## To Do
 
-Routes for main, posts  
-
-## Done
-
-Fix the templates  
-Routes  
-Mail  
-models  
-migrate  
-basic structure with blueprinting and app factory  
+Delete title from posts, not needed with Markdown formatting  
+Add in categories when creating posts  
+Filter on Categories  
+Clean up appearance  
+Make ready for deployment  
