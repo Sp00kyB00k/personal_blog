@@ -1,9 +1,10 @@
-from flask import render_template, redirect, url_for, flash, request, abort
+from flask import render_template, redirect, url_for, \
+    flash, request, abort, current_app
 from flask_login import current_user, login_required
 from ..decorators import permission_required
 from . import posts
-from .forms import PostForm
-from ..models import Permission, Post
+from .forms import PostForm, CommentForm
+from ..models import Permission, Post, Comment
 from .. import db
 
 
@@ -22,17 +23,36 @@ def write_post():
     return render_template('posts/create_post.html', form=form)
 
 
-@posts.route("/<int:id>")
+@posts.route("/<int:id>", methods=['GET', 'POST'])
 def post(id):
     post = Post.query.get_or_404(id)
-    return render_template('posts/_post.html', title=post.title, post=post)
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(body=form.body.data,
+                          post=post,
+                          author=current_user._get_current_object())
+        db.session.add(comment)
+        db.session.commit()
+        flash('Your comment has been published.')
+        return redirect(url_for('posts.post', id=post.id, page=-1))
+    page = request.args.get('page', 1, type=int)
+    if page == -1:
+        page = (post.comments.count() - 1) // \
+            current_app.config['COMMENTS_PER_PAGE'] + 1
+    pagination = post.comments.order_by(Comment.timestamp.asc()).paginate(
+        page, per_page=current_app.config['COMMENTS_PER_PAGE'],
+        error_out=False)
+    comments = pagination.items
+    return render_template('posts/post.html', title=post.title, posts=[post],
+                           form=form, comments=comments, pagination=pagination)
 
 
 @posts.route("/<int:id>/update", methods=['GET', 'POST'])
 @login_required
 def update_post(id):
     post = Post.query.get_or_404(id)
-    if post.author != current_user:
+    if post.author != current_user and \
+            not current_user.can(Permission.ADMIN):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():

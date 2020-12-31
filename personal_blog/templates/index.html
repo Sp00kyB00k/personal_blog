@@ -1,17 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-{% for post in posts.items %}
-{% include "posts/_post.html" %}
-{% endfor %}
-{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-{% if page_num %}
-{% if posts.page == page_num %}
-  <a class="btn btn-info mb-4" href="{{ url_for('main.index', page=page_num) }}">{{ page_num }}</a>
-{% else %}
-  <a class="btn btn-outline-info mb-4" href="{{ url_for('main.index', page=page_num) }}">{{ page_num }}</a>
+{% include "_posts.html" %}
+{% if pagination %}
+    {% include "_pagination.html" %}
 {% endif %}
-{% else %}
-...
-{% endif %}
-{% endfor %}
 {% endblock %}

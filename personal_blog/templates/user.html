@@ -14,12 +14,15 @@
 </p>
 <p>
     {% if user == current_user %}
-    <a class="btn btn-danger" href="{{ url_for('.edit_profile') }}">Edit Profile</a>
+    <a class="btn btn-danger" href="{{ url_for('main.edit_profile') }}">Edit Profile</a>
     {% endif %}
     {% if current_user.is_administrator() %}
-    <a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">Edit Profile [Admin]</a>
+    <a class="btn btn-danger" href="{{ url_for('main.edit_profile_admin', id=user.id) }}">Edit Profile [Admin]</a>
     {% endif %}
 </p>
 <h3>Posts by {{ user.username }}</h3>
-{% include "posts/_posts.html" %}
+{% include "_posts.html" %}
+{% if pagination %}
+    {% include "_pagination.html" %}
+{% endif %}
 {% endblock %}

@@ -1,17 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
+  {% for post in posts %}
   <article class="media content-section">
-    <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+    <a class="mr-2" href="{{ url_for('main.user', username=post.author.username) }}">
+      <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+    </a>
     <div class="media-body">
       <div class="article-metadata">
-        <a class="mr-2" href="#">{{ post.author.username }}</a>
+        <a class="mr-2" href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a>
         <small class="text-muted">{{ moment(post.timestamp).format("L") }}</small>
-        {% if post.author == current_user %}
-          <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', id=post.id) }}">Update</a>
-            <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
-          </div>
-        {% endif %}
       </div>
       <h2 class="article-title">{{ post.title }}</h2>
       <p class="article-content">
@@ -21,6 +18,16 @@
           {{ post.body }}
         {% endif %}
       </p>
+    </div>
+    <div class="post-footer">
+      {% if current_user == post.author %}
+      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', id=post.id) }}">Update</a>
+      <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+      {% elif current_user.is_administrator() %}
+      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.edit', id=post.id) }}">Edit [Admin]</a>
+      {% endif %}
+      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.post', id=post.id) }}">Permalink</a>
+      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.post', id=post.id) }}#comments">{{ post.comments.count() }} Comments</a>
     </div>
   </article>
   <!-- Modal -->
@@ -42,9 +49,6 @@
       </div>
     </div>
   </div>
-  <div class="post-footer">
-    <a href="{{ url_for('posts.post', id=post.id) }}">
-        <span class="label label-default">Permalink</span>
-    </a>
-  </div>
+ <!-- End Modal-->
+ {% endfor %}
 {% endblock content %}
