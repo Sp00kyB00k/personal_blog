@@ -19,13 +19,13 @@ Flask-Migrate
 Flask-wtf  
 Flask-Moment  
 Flask-Email  
-Flask-Pagedown
-markdown
-bleach
+Flask-Pagedown  
+markdown  
+bleach  
+coverage  
 
 ## To Do
 
-Delete title from posts, not needed with Markdown formatting  
 Add in categories when creating posts  
 Filter on Categories  
 Clean up appearance  

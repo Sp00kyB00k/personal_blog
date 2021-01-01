@@ -4,16 +4,22 @@ from flask_login import current_user, login_required
 from . import main
 from .forms import EditProfileForm, EditProfileAdminForm
 from .. import db
-from ..models import Permission, Post, User, Role, Comment
+from ..models import Permission, Post, User, Role, Comment, Category
 from ..decorators import admin_required, permission_required
 
 
 @main.route('/')
-def index():
+def index(category=None):
     page = request.args.get('page', type=int)
-    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
-        page=page, per_page=current_app.config['POSTS_PER_PAGE'])
-    posts = pagination.items
+    if category:
+        pagination = Category.query.filter_by(name=category).order_by(
+            Post.timestamp.desc()).paginate(
+            page=page, per_page=current_app.config['POSTS_PER_PAGE'])
+        posts = pagination.items
+    else:
+        pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
+            page=page, per_page=current_app.config['POSTS_PER_PAGE'])
+        posts = pagination.items
     return render_template('index.html', pagination=pagination, posts=posts)
 
 

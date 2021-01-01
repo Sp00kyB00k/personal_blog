@@ -4,8 +4,18 @@ from flask_login import current_user, login_required
 from ..decorators import permission_required
 from . import posts
 from .forms import PostForm, CommentForm
-from ..models import Permission, Post, Comment
+from ..models import Permission, Post, Comment, Category
 from .. import db
+
+
+@posts.route('/<category>')
+def filter_on_category(category):
+    page = request.args.get('page', type=int)
+    pagination = Category.query.filter_by(name=category).order_by(
+        Post.timestamp.desc()).paginate(
+        page=page, per_page=current_app.config['POSTS_PER_PAGE'])
+    posts = pagination.items
+    return render_template('index.html', pagination=pagination, posts=posts)
 
 
 @posts.route("/new", methods=['GET', 'POST'])
@@ -14,7 +24,8 @@ from .. import db
 def write_post():
     form = PostForm()
     if current_user.can(Permission.WRITE) and form.validate_on_submit():
-        post = Post(title=form.title.data,
+        post = Post(category=form.category.data,
+                    title=form.title.data,
                     body=form.body.data,
                     author=current_user._get_current_object())
         db.session.add(post)
