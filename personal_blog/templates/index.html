@@ -2,6 +2,8 @@
 {% block content %}
 {% include "_posts.html" %}
 {% if pagination %}
+<div class="pagination">
     {% include "_pagination.html" %}
+</div>
 {% endif %}
 {% endblock %}
