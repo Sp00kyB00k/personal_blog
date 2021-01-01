@@ -1,9 +1,17 @@
 import os
+
+COV = None
+if os.environ.get('COVERAGE'):
+    import coverage
+    COV = coverage.coverage(branch=True, include="personal_blog/*")
+    COV.start()
+
+import sys
 import click
 from flask_migrate import Migrate
 from personal_blog import create_app, db
-from personal_blog.models import User, Role, Permission, \
-    AnonymousUser, Post, Category
+from personal_blog.models import User, Role, Permission, Post, \
+    Category, Comment
 
 app = create_app('default')
 migrate = Migrate(app, db)
@@ -11,17 +19,34 @@ migrate = Migrate(app, db)
 
 @app.shell_context_processor
 def make_shell_context():
-    return dict(db=db, User=User, AnonymousUser=AnonymousUser, Post=Post,
-                Category=Category, Role=Role, Permission=Permission)
+    return dict(db=db, User=User, Post=Post, Category=Category,
+                Role=Role, Permission=Permission, Comment=Comment)
 
 
 @app.cli.command()
+@click.option('--coverage/--no-coverage', default=False,
+              help='Run tests under code coverage.')
 @click.argument('test_names', nargs=-1)
-def test(test_names):
+def test(coverage, test_names):
     """Run the unit tests."""
+    if coverage and not os.environ.get('COVERAGE'):
+        import subprocess
+        os.environ['COVERAGE'] = '1'
+        sys.exit(subprocess.call(sys.argv))
+
     import unittest
     if test_names:
         tests = unittest.TestLoader().loadTestsFromNames(test_names)
     else:
         tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
+    if COV:
+        COV.stop()
+        COV.save()
+        print('Coverage Summary:')
+        COV.report()
+        basedir = os.path.abspath(os.path.dirname(__file__))
+        covdir = os.path.join(basedir, 'tmp/coverage')
+        COV.html_report(directory=covdir)
+        print('HTML version: file://%s/index.html' % covdir)
+        COV.erase()
