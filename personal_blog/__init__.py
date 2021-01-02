@@ -35,6 +35,9 @@ def create_app(config_name):
     from .posts import posts as post_blueprint
     app.register_blueprint(post_blueprint, url_prefix='/posts')
 
+    from .categories import categories as categories_blueprint
+    app.register_blueprint(categories_blueprint, url_prefix="/categories")
+
     from .errors import errors as error_blueprint
     app.register_blueprint(error_blueprint, url_prefix='/error')
 

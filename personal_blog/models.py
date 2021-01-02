@@ -76,11 +76,11 @@ class Post(db.Model):
     body_html = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    categories = db.relationship('Category', backref='post', lazy='dynamic')
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
     def __repr__(self):
-        return "{} : {}".format(self.title, self.body)
+        return "Category : {}, Title {}".format(self.category_id, self.title)
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
@@ -120,8 +120,23 @@ db.event.listen(Comment.body, 'set', Comment.on_changed_body)
 class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
-    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    name = db.Column(db.String(50), unique=True)
+    posts = db.relationship('Post', backref="category", lazy="dynamic")
+
+    def __init__(self, **kwargs):
+        super(Category, self).__init__(**kwargs)
+        if self.name is None:
+            self.name = "Other"
+
+    @staticmethod
+    def insert_categories():
+        categories = ["Netsec", "Linux", "Micropython", "Algorithms", "Other"]
+        for c in categories:
+            cat = Category.query.filter_by(name=c).first()
+            if cat is None:
+                cat = Category(name=c)
+            db.session.add(cat)
+        db.session.commit()
 
     def __repr__(self):
         return "Category : {}".format(self.name)

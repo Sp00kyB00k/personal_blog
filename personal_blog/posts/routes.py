@@ -11,8 +11,8 @@ from .. import db
 @posts.route('/<category>')
 def filter_on_category(category):
     page = request.args.get('page', type=int)
-    pagination = Category.query.filter_by(name=category).order_by(
-        Post.timestamp.desc()).paginate(
+    category = Category.query.filter_by(name=category).first_or_404()
+    pagination = category.posts.paginate(
         page=page, per_page=current_app.config['POSTS_PER_PAGE'])
     posts = pagination.items
     return render_template('index.html', pagination=pagination, posts=posts)
@@ -24,14 +24,15 @@ def filter_on_category(category):
 def write_post():
     form = PostForm()
     if current_user.can(Permission.WRITE) and form.validate_on_submit():
-        post = Post(category=form.category.data,
-                    title=form.title.data,
+        post = Post(title=form.title.data,
                     body=form.body.data,
                     author=current_user._get_current_object())
+        post.category = Category.query.get(form.category.data)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for("main.index"))
-    return render_template('posts/create_post.html', form=form)
+    return render_template('posts/edit_post.html', form=form,
+                           legend="Write your Post!")
 
 
 @posts.route("/<int:id>", methods=['GET', 'POST'])
@@ -67,6 +68,7 @@ def update_post(id):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
+        post.category = Category.query.get(form.category.data)
         post.title = form.title.data
         post.body = form.body.data
         db.session.add(post)
@@ -74,9 +76,10 @@ def update_post(id):
         flash('Your post has been updated!', 'success')
         return redirect(url_for('posts.post', id=id))
     elif request.method == 'GET':
+        form.category.data = "Linux"
         form.title.data = post.title
         form.body.data = post.body
-    return render_template('posts/create_post.html', title='Update Post',
+    return render_template('posts/edit_post.html', title='Update Post',
                            form=form, legend='Update Post')
 
 

@@ -26,7 +26,4 @@ coverage
 
 ## To Do
 
-Add in categories when creating posts  
-Filter on Categories  
-Clean up appearance  
-Make ready for deployment  
+Deploy

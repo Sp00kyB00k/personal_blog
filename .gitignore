@@ -23,3 +23,5 @@ tmp
 poetry.lock
 .env
 *.sqlite-journal
+*.sqlite
+migrations

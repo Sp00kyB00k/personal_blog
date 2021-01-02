@@ -11,15 +11,9 @@ from ..decorators import admin_required, permission_required
 @main.route('/')
 def index(category=None):
     page = request.args.get('page', type=int)
-    if category:
-        pagination = Category.query.filter_by(name=category).order_by(
-            Post.timestamp.desc()).paginate(
-            page=page, per_page=current_app.config['POSTS_PER_PAGE'])
-        posts = pagination.items
-    else:
-        pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
-            page=page, per_page=current_app.config['POSTS_PER_PAGE'])
-        posts = pagination.items
+    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
+        page=page, per_page=current_app.config['POSTS_PER_PAGE'])
+    posts = pagination.items
     return render_template('index.html', pagination=pagination, posts=posts)
 
 
@@ -77,7 +71,7 @@ def edit_profile_admin(id):
         db.session.add(user)
         db.session.commit()
         flash('The profile has been updated.')
-        return redirect(url_for('.user', username=user.username))
+        return redirect(url_for('main.user', username=user.username))
     form.email.data = user.email
     form.username.data = user.username
     form.confirmed.data = user.confirmed
@@ -85,7 +79,7 @@ def edit_profile_admin(id):
     form.name.data = user.name
     form.location.data = user.location
     form.about_me.data = user.about_me
-    return render_template('edit_profile.html', form=form, user=user)
+    return render_template('edit_profile_admin.html', form=form, user=user)
 
 
 @main.route('/moderate')

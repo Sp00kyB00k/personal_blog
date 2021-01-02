@@ -1,19 +1,20 @@
 {% for post in posts %}
 <article class="media content-section">
-  <a class="mr-2" href="{{ url_for('main.user', username=post.author.username) }}">
-    <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-  </a>
+  <div>
+    <a class="mr-2" href="{{ url_for('main.user', username=post.author.username) }}">
+      <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"><br>
+    </a>
+    <small class="text-muted text-center">{{ post.category.name }}</small>
+  </div>
   <div class="media-body">
     <div class="article-metadata">
-      <a class="mr-2" href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a>
+      <a class="mr-2 text-xl" href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a>
       <small class="text-muted">{{ moment(post.timestamp).format("L") }}</small>
       {% if current_user == post.author %}
-      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.update_post', id=post.id) }}">Update</a>
-      <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
-      {% elif current_user.is_administrator() %}
-      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.edit', id=post.id) }}">Edit [Admin]</a>
+      <a class="btn btn-secondary btn-sm mt-1 mb-1 float-sm-right" href="{{ url_for('posts.update_post', id=post.id) }}">Update</a>
+      <button type="button" class="btn btn-danger btn-sm m-1 float-sm-right" data-toggle="modal" data-target="#deleteModal">Delete</button>
       {% endif %}
-      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('posts.post', id=post.id) }}#comments">{{ post.comments.count() }} Comments</a>
+      <a class="btn btn-secondary btn-sm mt-1 mb-1 float-sm-right" href="{{ url_for('posts.post', id=post.id) }}#comments">{{ post.comments.count() }} Comments</a>
     </div>
     <p>
       <h1><a class ="article-title" href="{{ url_for('posts.post', id=post.id) }}">{{ post.title }}</a></h1>
@@ -26,8 +27,8 @@
   </div>  
 </article>
 <!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
