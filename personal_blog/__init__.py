@@ -1,3 +1,6 @@
+import logging
+from logging.handlers import RotatingFileHandler
+import os
 from flask import Flask
 from flask_mail import Mail
 from flask_moment import Moment
@@ -8,12 +11,13 @@ from config import config
 
 mail = Mail()
 moment = Moment()
-db = SQLAlchemy(session_options={"autoflush": False})
+db = SQLAlchemy()
 pagedown = PageDown()
 
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -40,5 +44,17 @@ def create_app(config_name):
 
     from .errors import errors as error_blueprint
     app.register_blueprint(error_blueprint, url_prefix='/error')
+
+    if not os.path.exists(os.path.join(basedir, 'logs')):
+        os.mkdir(os.path.join(basedir, 'logs'))
+        file_handler = RotatingFileHandler('logs/personal_blog.log',
+                                           maxBytes=10240, backupCount=10)
+        file_handler.setFormatter(logging.Formatter(
+                '%(asctime)s %(levelname)s: %(message)s '
+                '[in %(pathname)s:%(lineno)d]'))
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+    app.logger.setLevel(logging.INFO)
+    app.logger.info('Start Personal Blog')
 
     return app
