@@ -71,7 +71,7 @@ class Role(db.Model):
 class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.Integer, unique=True, nullable=False)
+    title = db.Column(db.String(100), unique=True, nullable=False)
     body = db.Column(db.Text, nullable=False)
     body_html = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
@@ -130,7 +130,7 @@ class Category(db.Model):
 
     @staticmethod
     def insert_categories():
-        categories = ["Netsec", "Linux", "Micropython", "Algorithms", "Other"]
+        categories = ["Netsec", "Linux", "Python", "Algorithms", "Math", "Data Engineering", "Electronics", "C", "MicroPython", "IoT"]
         for c in categories:
             cat = Category.query.filter_by(name=c).first()
             if cat is None:

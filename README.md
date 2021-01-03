@@ -26,4 +26,6 @@ coverage
 
 ## To Do
 
-Deploy
+Add mailserver  
+Better Markdown displayment of code  
+

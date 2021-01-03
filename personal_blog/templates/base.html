@@ -28,7 +28,7 @@
     </head>
     <body>
       <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-fixed-top">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
           <div class="container">
             <a class="navbar-brand mr-4" href="/">Revert</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,10 +75,16 @@
               <h3>Pick a category</h3>
               <p class='text-muted'>You can put any information here you'd like.
                 <ul class="list-group">
+                  <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Algorithms') }}">Algorithms</a>
+                  <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='C') }}">C</a>
+                  <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Data Engineering') }}">Data Engineering</a>
+                  <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Electronics') }}">Electronics</a>
+                  <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='IoT') }}">IoT</a>
                   <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Linux') }}">Linux</a>
-                  <li class="list-group-item list-group-item-light">Micropython</li>
-                  <li class="list-group-item list-group-item-light">Python</li>
-                  <li class="list-group-item list-group-item-light">Algorithms</li>
+                  <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Math') }}">Math</a>
+                  <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Micropython') }}">Micropython</a>
+                  <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Netsec') }}">Netsec</a>
+                  <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Python') }}">Python</a>
                 </ul>
               </p>
             </div>

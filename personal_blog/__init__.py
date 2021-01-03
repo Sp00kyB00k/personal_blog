@@ -54,7 +54,7 @@ def create_app(config_name):
                 '[in %(pathname)s:%(lineno)d]'))
         file_handler.setLevel(logging.INFO)
         app.logger.addHandler(file_handler)
-    app.logger.setLevel(logging.INFO)
+    app.logger.setLevel(logging.ERROR)
     app.logger.info('Start Personal Blog')
 
     return app
