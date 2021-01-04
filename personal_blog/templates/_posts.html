@@ -19,7 +19,7 @@
     <p>
       <h1><a class ="article-title" href="{{ url_for('posts.post', id=post.id) }}">{{ post.title }}</a></h1>
       {% if post.body_html %}
-        {{ post.body_html | safe }}
+        {{ post.body_html | safe}}
       {% else %}
         {{ post.body }}
       {% endif %}

@@ -2,10 +2,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from datetime import datetime
 from flask import current_app
+from misaka import Markdown
 from markdown import markdown
 import bleach
 from flask_login import UserMixin, AnonymousUserMixin
 from personal_blog import db, login_manager
+from personal_blog.misaka_renderer import HighLightRenderer
 
 
 class Permission:
@@ -84,12 +86,8 @@ class Post(db.Model):
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
-        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
-                        'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
-                        'h1', 'h2', 'h3', 'p']
-        target.body_html = bleach.linkify(bleach.clean(
-            markdown(value, output_format='html'),
-            tags=allowed_tags, strip=True))
+        md = Markdown(renderer=HighLightRenderer(), extensions=['fenced-code'])
+        target.body_html = md(value)
 
 
 db.event.listen(Post.body, 'set', Post.on_changed_body)
@@ -110,7 +108,7 @@ class Comment(db.Model):
         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'code', 'em', 'i',
                         'strong']
         target.body_html = bleach.linkify(bleach.clean(
-            markdown(value, output_format='html'),
+            markdown(value, output_format='html', extensions=["fenced_code"]),
             tags=allowed_tags, strip=True))
 
 
@@ -130,7 +128,9 @@ class Category(db.Model):
 
     @staticmethod
     def insert_categories():
-        categories = ["Netsec", "Linux", "Python", "Algorithms", "Math", "Data Engineering", "Electronics", "C", "MicroPython", "IoT"]
+        categories = ["Netsec", "Linux", "Python", "Algorithms",
+                      "Math", "Data Engineering", "Electronics",
+                      "C", "MicroPython", "IoT"]
         for c in categories:
             cat = Category.query.filter_by(name=c).first()
             if cat is None:
