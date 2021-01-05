@@ -130,7 +130,7 @@ class Category(db.Model):
     def insert_categories():
         categories = ["Netsec", "Linux", "Python", "Algorithms",
                       "Math", "Data Engineering", "Electronics",
-                      "C", "MicroPython", "IoT"]
+                      "C", "MicroPython", "IoT", "Webdevelopment"]
         for c in categories:
             cat = Category.query.filter_by(name=c).first()
             if cat is None:

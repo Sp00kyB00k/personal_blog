@@ -30,7 +30,8 @@
       <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
           <div class="container">
-            <a class="navbar-brand mr-4" href="/">Revert</a>
+            <a class="navbar-brand mr-4" href="/">
+              <img src="{{ url_for('static', filename='revert.png') }}" width="30" height="30" alt="">Revert</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -73,7 +74,7 @@
           <div class="col-md-4">
             <div class="content-section">
               <h3>Pick a category</h3>
-              <p class='text-muted'>You can put any information here you'd like.
+              <p class='text-muted'>It will shows every post with that subject
                 <ul class="list-group">
                   <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Algorithms') }}">Algorithms</a>
                   <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='C') }}">C</a>
@@ -85,6 +86,7 @@
                   <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Micropython') }}">Micropython</a>
                   <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Netsec') }}">Netsec</a>
                   <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Python') }}">Python</a>
+                  <a class="list-group-item list-group-item-light" href="{{ url_for('categories.filter_on_category', category='Webdevelopment') }}">Webdevelopment</a>
                 </ul>
               </p>
             </div>
