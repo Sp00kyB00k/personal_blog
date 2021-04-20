@@ -13,7 +13,7 @@ from personal_blog import create_app, db
 from personal_blog.models import User, Role, Permission, Post, \
     Category, Comment
 
-app = create_app('unix')
+app = create_app('default')
 migrate = Migrate(app, db)
 
 
