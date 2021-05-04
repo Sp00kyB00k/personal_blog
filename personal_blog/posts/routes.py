@@ -1,3 +1,4 @@
+import os
 from flask import render_template, redirect, url_for, \
     flash, request, abort, current_app
 from flask_login import current_user, login_required
@@ -23,9 +24,11 @@ def filter_on_category(category):
 @permission_required(Permission.WRITE)
 def write_post():
     form = PostForm()
+    print(form.body.data)
     if current_user.can(Permission.WRITE) and form.validate_on_submit():
+        f = form.body.data.read().decode('utf-8')
         post = Post(title=form.title.data,
-                    body=form.body.data,
+                    body=f,
                     author=current_user._get_current_object())
         post.category = Category.query.get(form.category.data)
         db.session.add(post)

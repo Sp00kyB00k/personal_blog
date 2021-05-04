@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from flask_pagedown.fields import PageDownField
+from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import TextAreaField, StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 from personal_blog.models import Category
@@ -8,7 +8,9 @@ from personal_blog.models import Category
 class PostForm(FlaskForm):
     category = SelectField("Category", coerce=str)
     title = TextAreaField("Title", validators=[DataRequired()])
-    body = PageDownField("Content", validators=[DataRequired()])
+    body = FileField("Content",
+                     validators=[FileRequired(),
+                                 FileAllowed(["md"], "Only MarkDown Files")])
     submit = SubmitField("submit")
 
     def __init__(self, *args, **kwargs):
