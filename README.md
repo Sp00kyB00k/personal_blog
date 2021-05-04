@@ -19,7 +19,6 @@ Flask-Migrate
 Flask-wtf  
 Flask-Moment  
 Flask-Email  
-Flask-Pagedown  
 markdown  
 bleach  
 coverage  
@@ -28,8 +27,6 @@ coverage
 
 Add mailserver  
 Books page (Books + review)  
-Photo uploading for creating a Post  
+Photo uploading when pictures are needed inside a Post  
 Dont show email when clicking on my account  
-Make it possible to upload markdown.md files  
-Replace flask-pagedown with misaka-based prerendering  
 Replace bootstrap 4 with own css & js  

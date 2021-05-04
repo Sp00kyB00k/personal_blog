@@ -45,8 +45,11 @@
         </ul>
       </header>
       <main role="main" class="main">
-        <div class="row">
-          <div class="col-md-8">
+        <div class="">
+          <div class="col-4">
+
+          </div>
+          <div class="col-8 container">
               {% for message in get_flashed_messages() %}
               <div class="alert alert-warning">
                 {{ message }}
@@ -54,8 +57,8 @@
               {% endfor %}
               {% block content %}{% endblock %}
           </div>
-          <div class="col-md-4">
-            <div class="content-section">
+          <div class="col-12">
+            <div class="container">
               <h3>Pick a category</h3>
               <p class='text-muted'>It will shows every post with that subject
                 <ul class="list-group">
