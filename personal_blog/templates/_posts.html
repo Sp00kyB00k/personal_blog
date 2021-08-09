@@ -1,23 +1,19 @@
 {% for post in posts %}
-<article class="article">
-  <div>
+<article class="card-row">
+  <div class=card">
     <a class="mr-2" href="{{ url_for('main.user', username=post.author.username) }}">
-      <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"><br>
+      <img class="profile-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"><br>
     </a>
-    <small class="text-muted text-center">{{ post.category.name }}</small>
-  </div>
-  <div class="media-body">
-    <div class="article-metadata">
-      <a class="mr-2 text-xl" href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a>
-      <small class="text-muted">{{ moment(post.timestamp).format("L") }}</small>
-      {% if current_user == post.author %}
-      <a class="btn btn-secondary btn-sm mt-1 mb-1 float-sm-right" href="{{ url_for('posts.update_post', id=post.id) }}">Update</a>
-      <button type="button" class="btn btn-danger btn-sm m-1 float-sm-right" data-toggle="modal" data-target="#deleteModal">Delete</button>
-      {% endif %}
-      <a class="btn btn-secondary btn-sm mt-1 mb-1 float-sm-right" href="{{ url_for('posts.post', id=post.id) }}#comments">{{ post.comments.count() }} Comments</a>
-    </div>
+    <small>{{ post.category.name }}</small>
+    <a class="mr-2 text-xl" href="{{ url_for('main.user', username=post.author.username) }}">{{ post.author.username }}</a>
+    <small>{{ moment(post.timestamp).format("L") }}</small>
+    {% if current_user == post.author %}
+    <a class="button" href="{{ url_for('posts.update_post', id=post.id) }}">Update</a>
+    <button type="button" class="button" data-toggle="modal" data-target="#deleteModal">Delete</button>
+    {% endif %}
+    <a class="button" href="{{ url_for('posts.post', id=post.id) }}#comments">{{ post.comments.count() }} Comments</a>
     <p>
-      <h1><a class ="article-title" href="{{ url_for('posts.post', id=post.id) }}">{{ post.title }}</a></h1>
+    <h1><a href="{{ url_for('posts.post', id=post.id) }}">{{ post.title }}</a></h1>
       {% if post.body_html %}
         {{ post.body_html | safe}}
       {% else %}
