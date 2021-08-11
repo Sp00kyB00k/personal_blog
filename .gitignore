@@ -16,7 +16,7 @@ __pycache__
 # Unit Test
 .pytest_cache
 .coverage
-tmp
+tmp/
 
 # Development
 .vscode
@@ -26,3 +26,4 @@ poetry.lock
 *.sqlite
 migrations
 .venv
+.vim/
