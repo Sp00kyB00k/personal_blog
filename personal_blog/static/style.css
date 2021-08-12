@@ -73,6 +73,7 @@ ul.drop-menu li {
 
 li:hover > ul.drop-menu li {
     display: flex;
+    flex-direction: column;
 }
 
 li > ul.drop-menu {
