@@ -1,6 +1,6 @@
 {% for post in posts %}
-<article class="card-row">
-  <div class=card">
+<div class="content">
+<article class="card">
     <a class="mr-2" href="{{ url_for('main.user', username=post.author.username) }}">
       <img class="profile-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"><br>
     </a>
@@ -20,6 +20,6 @@
         {{ post.body }}
       {% endif %}
     </p>
-  </div>  
 </article>
+</div>
 {% endfor %}

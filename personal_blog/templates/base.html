@@ -2,80 +2,157 @@
 <html>
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+      type="image/x-icon"
+    />
+    <link
+      rel="icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+      type="image/x-icon"
+    />
     <!--
     Including the initialization of the different extentions
     -->
-    {{ moment.include_jquery() }}
-    {{ moment.include_moment() }}
-    
+    {{
+      moment.include_jquery()
+    }}
+    {{
+      moment.include_moment()
+    }}
+
     {% if title %}
-      <title>Revert - {{ title }}</title>
+    <title>Revert - {{ title }}</title>
     {% else %}
-      <title>Revert</title>
+    <title>Revert</title>
     {% endif %}
   </head>
   <body>
     <header>
+      <h1 class="logo title">
+        <img source={{ url_for('static', filename="logo.jpg")}}> Revert
+      </h1>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" />
       <nav>
-	<img class="logo">
         <ul>
-            <li ><a href="{{ url_for('main.index') }}">Home</a></li>
-            <li ><a href="{{ url_for('main.about') }}">About</a></li>
-	    <li>
-		    <a href="">Categories</a>
-	    <ul class="drop-menu">
-	      <li><a href="{{ url_for('categories.filter_on_category', category='Algorithms') }}">Algorithms</a></li>
-	      <li><a href="{{ url_for('categories.filter_on_category', category='C') }}">C</a></li>
-	      <li><a href="{{ url_for('categories.filter_on_category', category='Data Engineering') }}">Data Engineering</a></li>
-	      <li><a href="{{ url_for('categories.filter_on_category', category='Electronics') }}">Electronics</a></li>
-	      <li><a href="{{ url_for('categories.filter_on_category', category='IoT') }}">IoT</a></li>
-	      <li><a href="{{ url_for('categories.filter_on_category', category='Linux') }}">Linux</a></li>
-	      <li><a href="{{ url_for('categories.filter_on_category', category='Math') }}">Math</a></li>
-	      <li><a href="{{ url_for('categories.filter_on_category', category='Micropython') }}">Micropython</a></li>
-              <li><a href="{{ url_for('categories.filter_on_category', category='Netsec') }}">Netsec</a></li>
-	      <li><a href="{{ url_for('categories.filter_on_category', category='Python') }}">Python</a></li>
-	    </ul>
-	    </l>
-            {% if current_user.is_authenticated %}
-            <li ><a href="{{ url_for('main.user', username=current_user.username) }}">Profile</a></li>
-            {% if current_user.can(Permission.WRITE) %}
-            <li ><a href="{{ url_for('posts.write_post') }}">New Post</a></li>
-            {% endif %}
-            {% if current_user.can(Permission.MODERATE) %}
-            <li ><a href="{{ url_for('main.moderate') }}">Moderate Comments</a></li>
-            {% endif %}
-            <li ><a href="{{ url_for('auth.change_password') }}">Change Password</a></li>
-            <li ><a href="{{ url_for('auth.change_email_request') }}">Change Email</a></li>
-            <li ><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
-            {% else %}
-            <li ><a href="{{ url_for('auth.login') }}">Log In</a></li>
-            <li ><a href="{{ url_for('auth.register') }}">Register</a></li>
-            {% endif %}
-          </ul>
-	</nav>
-      </header>
-      <main>
-        {% for message in get_flashed_messages() %}
-          <div class="alert">
-            {{ message }}
-          </div>
-        {% endfor %}
-	</div>
-	<div class="container">
-	  <div></div>
-	  {% block content %}{% endblock %}
-	  <div></div>
-	</div>
-	{% block scripts %}
-        {{ moment.include_moment() }}
-        {% endblock %}
-      </main>
-    </div>
+          <li class="sweep">
+            <a class="sweep" href="{{ url_for('main.index') }}">Home</a>
+          </li>
+          <li><a href="{{ url_for('main.about') }}">About</a></li>
+          <li class="dropdown-menu">
+            <a href="">Categories</a>
+            <ul class="dropdown-item">
+              <li>
+                <a
+                  href="{{ url_for('categories.filter_on_category', category='Algorithms') }}"
+                  >Algorithms</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('categories.filter_on_category', category='C') }}"
+                  >C</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('categories.filter_on_category', category='Data Engineering') }}"
+                  >Data Engineering</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('categories.filter_on_category', category='Electronics') }}"
+                  >Electronics</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('categories.filter_on_category', category='IoT') }}"
+                  >IoT</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('categories.filter_on_category', category='Linux') }}"
+                  >Linux</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('categories.filter_on_category', category='Math') }}"
+                  >Math</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('categories.filter_on_category', category='Micropython') }}"
+                  >Micropython</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('categories.filter_on_category', category='Netsec') }}"
+                  >Netsec</a
+                >
+              </li>
+              <li>
+                <a
+                  href="{{ url_for('categories.filter_on_category', category='Python') }}"
+                  >Python</a
+                >
+              </li>
+            </ul>
+          </li>
+          {% if current_user.is_authenticated %}
+          <li>
+            <a href="{{ url_for('main.user', username=current_user.username) }}"
+              >Profile</a
+            >
+          </li>
+          {% if current_user.can(Permission.WRITE) %}
+          <li><a href="{{ url_for('posts.write_post') }}">New Post</a></li>
+          {% endif %} {% if current_user.can(Permission.MODERATE) %}
+          <li>
+            <a href="{{ url_for('main.moderate') }}">Moderate Comments</a>
+          </li>
+          {% endif %}
+          <li>
+            <a href="{{ url_for('auth.change_password') }}">Change Password</a>
+          </li>
+          <li>
+            <a href="{{ url_for('auth.change_email_request') }}"
+              >Change Email</a
+            >
+          </li>
+          <li><a href="{{ url_for('auth.logout') }}">Log Out</a></li>
+          {% else %}
+          <li><a href="{{ url_for('auth.login') }}">Log In</a></li>
+          <li><a href="{{ url_for('auth.register') }}">Register</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+      <label for="nav-toggle" class="nav-toggle-label">
+        <span></span>
+      </label>
+    </header>
+    <main>
+      {% for message in get_flashed_messages() %}
+      <div>
+        {{ message }}
+      </div>
+      {% endfor %} {% block content %}{% endblock %} {% block scripts %}
+      {{ moment.include_moment() }}
+      {% endblock %}
+    </main>
   </body>
-</html>>
+</html>
