@@ -36,7 +36,7 @@
     <title>Revert</title>
     {% endif %}
   </head>
-  <body>
+  <body class="container">
     <header>
       <h1 class="logo title">
         <img source={{ url_for('static', filename="logo.jpg")}}> Revert
@@ -44,13 +44,13 @@
       <input type="checkbox" id="nav-toggle" class="nav-toggle" />
       <nav>
         <ul>
-          <li class="sweep">
-            <a class="sweep" href="{{ url_for('main.index') }}">Home</a>
+          <li>
+            <a href="{{ url_for('main.index') }}">Home</a>
           </li>
           <li><a href="{{ url_for('main.about') }}">About</a></li>
-          <li class="dropdown-menu">
+          <li class="show-mobile">
             <a href="">Categories</a>
-            <ul class="dropdown-item">
+            <ul>
               <li>
                 <a
                   href="{{ url_for('categories.filter_on_category', category='Algorithms') }}"
@@ -145,6 +145,70 @@
         <span></span>
       </label>
     </header>
+    <div class="sidebar show-desktop">
+      <h1>Categories</h1>
+      <ul class="sidebar-item">
+        <li>
+          <a
+            href="{{ url_for('categories.filter_on_category', category='Algorithms') }}"
+            >Algorithms</a
+          >
+        </li>
+        <li>
+          <a href="{{ url_for('categories.filter_on_category', category='C') }}"
+            >C</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{ url_for('categories.filter_on_category', category='Data Engineering') }}"
+            >Data Engineering</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{ url_for('categories.filter_on_category', category='Electronics') }}"
+            >Electronics</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{ url_for('categories.filter_on_category', category='IoT') }}"
+            >IoT</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{ url_for('categories.filter_on_category', category='Linux') }}"
+            >Linux</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{ url_for('categories.filter_on_category', category='Math') }}"
+            >Math</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{ url_for('categories.filter_on_category', category='Micropython') }}"
+            >Micropython</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{ url_for('categories.filter_on_category', category='Netsec') }}"
+            >Netsec</a
+          >
+        </li>
+        <li>
+          <a
+            href="{{ url_for('categories.filter_on_category', category='Python') }}"
+            >Python</a
+          >
+        </li>
+      </ul>
+    </div>
     <main>
       {% for message in get_flashed_messages() %}
       <div>
@@ -154,5 +218,10 @@
       {{ moment.include_moment() }}
       {% endblock %}
     </main>
+    <footer>
+      <a class="links" href="https://www.github.com/CommandReverse"
+        >My Github</a
+      >
+    </footer>
   </body>
 </html>

@@ -1,15 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="page-header">
-    <h1>Register</h1>
-</div>
-<div>
-    <div class="content-section">
+<div class="wrapper">
+    <div class="content">
+    <h1 class="title">Register</h1>
+<div class="form">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Register</legend>
-                <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
                         {{ form.email(class="form-control form-control-lg is-invalid") }}
@@ -21,21 +17,15 @@
                     {% else %}
                         {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
-                </div>
-                <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
                     {% if form.username.errors %}
                         {{ form.username(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
                             {% for error in form.username.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
-                        </div>
                     {% else %}
                         {{ form.username(class="form-control form-control-lg") }}
                     {% endif %}
-                </div>
-                <div class="form-group">
                     {{ form.password.label(class="form-control-label") }}
                     {% if form.password.errors %}
                         {{ form.password(class="form-control form-control-lg is-invalid") }}
@@ -47,8 +37,6 @@
                     {% else %}
                         {{ form.password(class="form-control form-control-lg") }}
                     {% endif %}
-                </div>
-                <div class="form-group">
                     {{ form.password2.label(class="form-control-label") }}
                     {% if form.password2.errors %}
                         {{ form.password2(class="form-control form-control-lg is-invalid") }}
@@ -60,11 +48,7 @@
                     {% else %}
                         {{ form.password2(class="form-control form-control-lg") }}
                     {% endif %}
-                </div>
-            </fieldset>
-            <div class="form-group">
                 {{ form.submit(class="btn btn-outline-success") }}
-            </div>
         </form>
     </div>
     <br>

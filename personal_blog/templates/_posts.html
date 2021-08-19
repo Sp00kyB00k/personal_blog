@@ -1,5 +1,5 @@
 {% for post in posts %}
-<div class="content">
+<div class="wrapper">
 <article class="card">
     <a class="mr-2" href="{{ url_for('main.user', username=post.author.username) }}">
       <img class="profile-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}"><br>
