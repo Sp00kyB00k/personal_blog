@@ -1,7 +1,7 @@
 server {
     # listen on port 80 (http)
     listen 80;
-    server_name commandreverse.com;
+    server_name commandreverse.com www.commandreverse.com;
     location ~/.well-known {
 	root /var/www/personal_blog;
     }
@@ -13,7 +13,7 @@ server {
 server {
     # listen on port 443 (https)
     listen 443 ssl;
-    server_name commandreverse.com;
+    server_name commandreverse.com www.commandreverse.com;
 
     # location of lets encrypt certificates
     ssl_certificate /etc/letsencrypt/live/commandreverse.com-0001/fullchain.pem;
