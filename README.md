@@ -1,15 +1,13 @@
-# Personal Blog  
+# Personal Blog
 
-This project is building a simple blog with Flask.  
-The dependencies are managed with poetry which.  
+A blog built with Flask and Poetry  
+Due to personal usage will this stay in development  
+to polish it until near perfection
 
-## Functionality  
+## Functionality
 
-The blog allows you to write your own blogposts and manages what the enduser can do with some simple RBAC.
-
-## Wanted functionality  
-
-Markup / HTML formatting and code block formatting for blog posts  
+The blog allows you to write your own blogposts  
+and manages what the enduser can do with some simple RBAC
 
 ## Added extentions
 
@@ -21,12 +19,20 @@ Flask-Moment
 Flask-Email  
 markdown  
 bleach  
-coverage  
+coverage
+
+## Wanted functionality
+
+- Mailserver
+- Books page
+- Messaging
+- Other writers
+- Embeds / Links
+- Photos inside articles
 
 ## To Do
 
 Add mailserver  
-Books page (Books + review)  
-Photo uploading when pictures are needed inside a Post  
-Dont show email when clicking on my account  
-Replace bootstrap 4 with own css & js  
+Books page ( Books + review )
+Update markdown formatting to a better embed that scales with CSS  
+Photo uploading when pictures are needed inside a Post
