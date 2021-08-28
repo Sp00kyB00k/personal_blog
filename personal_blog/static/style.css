@@ -111,6 +111,7 @@
 
   .title {
     font-family: "Style Script", cursive;
+    text-decoration: none;
     color: var(--title);
     font-weight: 600;
     font-size: 3.3rem;
@@ -167,13 +168,14 @@
   .codehilite {
     margin: 0.5em;
     padding: 0.5em;
-    overflow-x: auto;
+    overflow: auto;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     max-width: 100%;
     background-color: var(--codeblock);
-    border: 1px solid var(--border);
+    border: 2px solid var(--border);
+    border-radius: 7px;
   }
 
   .codehilite * {
@@ -431,13 +433,44 @@
   }
 
   .card {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    flex-wrap: no-wrap;
+    overflow: auto;
     width: 50%;
     margin: 1rem;
-    padding: 1.5rem;
+    padding: 1rem;
     border: 1px solid var(--border);
     background-color: var(--foreground);
     border-radius: 7px;
-    box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.35);
+    box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .card * {
+    width: 80%;
+    margin: 0.25em 0 0.25em 0;
+    padding: 0;
+    overflow-wrap: break-word;
+  }
+
+  .codehilite {
+    margin: 0.5em;
+    padding: 0.5em;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 100%;
+    background-color: var(--codeblock);
+    border: 2px solid var(--border);
+    border-radius: 7px;
+  }
+
+  .codehilite * {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
   }
 
   .content {
@@ -449,6 +482,7 @@
     margin: 1rem;
     padding: 1rem;
     border: 1px solid var(--border);
+    border-radius: 7px;
     color: var(--sidebar);
     background-color: var(--foreground);
   }
@@ -477,6 +511,7 @@
 
   .title {
     font-family: "Style Script", cursive;
+    text-decoration: none;
     place-self: center;
     color: var(--title);
     font-weight: 600;
@@ -513,6 +548,9 @@
     color: var(--text);
     font-weight: 600;
     font-size: 1.5em;
+    display: block;
+    height: 100%;
+    width: 100%;
   }
 
   .sidebar-item li:hover {
