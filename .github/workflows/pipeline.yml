@@ -22,4 +22,4 @@ jobs:
             whoami
             cd personal_blog
             git pull
-            supervisorctl reload
+            sudo supervisorctl reload
