@@ -19,6 +19,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
+            whoami
             cd personal_blog
             git pull
             supervisorctl reload
