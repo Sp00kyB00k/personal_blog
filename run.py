@@ -1,5 +1,7 @@
 import os
 
+from sqlalchemy.orm import query
+
 COV = None
 if os.environ.get('COVERAGE'):
     import coverage
@@ -16,6 +18,9 @@ from personal_blog.models import User, Role, Permission, Post, \
 app = create_app('production')
 migrate = Migrate(app, db)
 
+@app.context_processor
+def context_processor():
+    return dict(categories=Category.query.all())
 
 @app.shell_context_processor
 def make_shell_context():
