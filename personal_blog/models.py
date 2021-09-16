@@ -129,8 +129,8 @@ class Category(db.Model):
     @staticmethod
     def insert_categories():
         categories = ["Netsec", "Linux", "Python", "Algorithms",
-                      "Math", "Data Engineering", "Electronics",
-                      "C", "MicroPython", "IoT", "Webdevelopment"]
+                      "Math", "Docker", "Rust",
+                      "Azure", "Kubernetes", "HTML", "CSS"]
         for c in categories:
             cat = Category.query.filter_by(name=c).first()
             if cat is None:
@@ -139,7 +139,7 @@ class Category(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return "Category : {}".format(self.name)
+        return "{}".format(self.name)
 
 
 class User(UserMixin, db.Model):

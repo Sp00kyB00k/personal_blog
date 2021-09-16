@@ -56,65 +56,13 @@
           <li class="show-mobile">
             <a href="">Categories</a>
             <ul>
+              {% for category in categories%}
               <li>
                 <a
-                  href="{{ url_for('categories.filter_on_category', category='Algorithms') }}"
-                  >Algorithms</a
+                  href="{{ url_for('categories.filter_on_category', category=category) }}"
+                  >{{ category }}</a
                 >
-              </li>
-              <li>
-                <a
-                  href="{{ url_for('categories.filter_on_category', category='C') }}"
-                  >C</a
-                >
-              </li>
-              <li>
-                <a
-                  href="{{ url_for('categories.filter_on_category', category='Data Engineering') }}"
-                  >Data Engineering</a
-                >
-              </li>
-              <li>
-                <a
-                  href="{{ url_for('categories.filter_on_category', category='Electronics') }}"
-                  >Electronics</a
-                >
-              </li>
-              <li>
-                <a
-                  href="{{ url_for('categories.filter_on_category', category='IoT') }}"
-                  >IoT</a
-                >
-              </li>
-              <li>
-                <a
-                  href="{{ url_for('categories.filter_on_category', category='Linux') }}"
-                  >Linux</a
-                >
-              </li>
-              <li>
-                <a
-                  href="{{ url_for('categories.filter_on_category', category='Math') }}"
-                  >Math</a
-                >
-              </li>
-              <li>
-                <a
-                  href="{{ url_for('categories.filter_on_category', category='Micropython') }}"
-                  >Micropython</a
-                >
-              </li>
-              <li>
-                <a
-                  href="{{ url_for('categories.filter_on_category', category='Netsec') }}"
-                  >Netsec</a
-                >
-              </li>
-              <li>
-                <a
-                  href="{{ url_for('categories.filter_on_category', category='Python') }}"
-                  >Python</a
-                >
+                {% endfor %}
               </li>
             </ul>
           </li>
@@ -153,64 +101,13 @@
     <div class="sidebar show-desktop">
       <h1>Categories</h1>
       <ul class="sidebar-item">
+        {% for category in categories%}
         <li>
           <a
-            href="{{ url_for('categories.filter_on_category', category='Algorithms') }}"
-            >Algorithms</a
+            href="{{ url_for('categories.filter_on_category', category=category) }}"
+            >{{ category }}</a
           >
-        </li>
-        <li>
-          <a href="{{ url_for('categories.filter_on_category', category='C') }}"
-            >C</a
-          >
-        </li>
-        <li>
-          <a
-            href="{{ url_for('categories.filter_on_category', category='Data Engineering') }}"
-            >Data Engineering</a
-          >
-        </li>
-        <li>
-          <a
-            href="{{ url_for('categories.filter_on_category', category='Electronics') }}"
-            >Electronics</a
-          >
-        </li>
-        <li>
-          <a
-            href="{{ url_for('categories.filter_on_category', category='IoT') }}"
-            >IoT</a
-          >
-        </li>
-        <li>
-          <a
-            href="{{ url_for('categories.filter_on_category', category='Linux') }}"
-            >Linux</a
-          >
-        </li>
-        <li>
-          <a
-            href="{{ url_for('categories.filter_on_category', category='Math') }}"
-            >Math</a
-          >
-        </li>
-        <li>
-          <a
-            href="{{ url_for('categories.filter_on_category', category='Micropython') }}"
-            >Micropython</a
-          >
-        </li>
-        <li>
-          <a
-            href="{{ url_for('categories.filter_on_category', category='Netsec') }}"
-            >Netsec</a
-          >
-        </li>
-        <li>
-          <a
-            href="{{ url_for('categories.filter_on_category', category='Python') }}"
-            >Python</a
-          >
+          {% endfor %}
         </li>
       </ul>
     </div>

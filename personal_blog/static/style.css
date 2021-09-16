@@ -179,7 +179,7 @@ footer .links {
 .profile-img {
   border-radius: 50%;
   height: auto;
-  width: 50px;
+  width: 50px !important;
 }
 
 /* navigation styling */
@@ -197,15 +197,10 @@ nav {
 
 nav ul {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-nav li {
-  margin-bottom: 3em;
-  margin-left: 0;
 }
 
 nav a {
@@ -237,14 +232,6 @@ nav a::before {
 
 nav a:hover::before {
   transform: scale(1, 1);
-}
-
-nav ul li ul {
-  display: none;
-}
-
-nav ul li ul li {
-  display: none;
 }
 
 /* form formatting */
@@ -393,6 +380,9 @@ label {
     transform-origin: top;
     transition: transform 400ms ease-in-out;
   }
+  nav ul {
+    flex-direction: column;
+  }
 
   nav li {
     margin-bottom: 1em;
@@ -464,7 +454,7 @@ label {
   }
 
   .card * {
-    width: 50%;
+    width: 80%;
   }
 
   .title {
@@ -532,5 +522,18 @@ label {
     display: flex;
     justify-content: flex;
     align-items: center;
+  }
+
+  nav li {
+    margin-left: 3em;
+    margin-bottom: 0;
+  }
+
+  nav ul li ul {
+    display: none;
+  }
+
+  nav ul li ul li {
+    display: none;
   }
 }
