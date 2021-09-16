@@ -1,52 +1,52 @@
 {% extends "base.html" %}
 {% block content %}
-<div>
+<div class="wrapper">
     {% if current_user.can(Permission.WRITE) %}
-    <div class="content-section">
+    <div class="content">
         <form method="POST" enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">{{ legend }}</legend>
-                <div class="form-group">
-                    {{ form.category.label(class="form-control-label") }}
+                <div class="form">
+                    {{ form.category.label }}
                     {% if form.category.errors %}
-                        {{ form.category(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
+                        {{ form.category }}
+                        <div>
                             {% for error in form.category.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.category(class="form-control form-control-lg") }}
+                        {{ form.category }}
                     {% endif %}
                 </div>
-                <div class="form-group">
-                    {{ form.title.label(class="form-control-label") }}
+                <div class="form">
+                    {{ form.title.label }}
                     {% if form.title.errors %}
-                        {{ form.title(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
+                        {{ form.title }}
+                        <div>
                             {% for error in form.title.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.title(class="form-control form-control-lg") }}
+                        {{ form.title }}
                     {% endif %}
                 </div>
-                <div class="form-group">
-                    {{ form.body.label(class="form-control-label") }}
+                <div class="form">
+                    {{ form.body.label }}
                     {% if form.body.errors %}
-                        {{ form.body(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
+                        {{ form.body }}
+                        <div>
                             {% for error in form.body.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.body(class="form-control form-control-lg") }}
+                        {{ form.body }}
                     {% endif %}
                 </div>
-                <div class="form-group">
+                <div class="form">
                     {{ form.submit(class="btn btn-outline-success") }}
                 </div>
             </fieldset>

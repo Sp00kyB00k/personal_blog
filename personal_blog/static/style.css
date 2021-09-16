@@ -35,6 +35,261 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  margin: 0;
+  background-image: url("bg.jpg");
+  background: var(--background);
+  background-blend-mode: multiply;
+  background-size: cover;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 400;
+}
+
+.container {
+  padding: 0;
+  margin: 0;
+  background-color: var(--background);
+  display: grid;
+}
+
+main {
+  grid-template-rows: auto;
+  background-image: url("bg.jpg");
+  background-color: var(--background);
+  background-blend-mode: overlay;
+  background-size: cover;
+}
+
+header {
+  text-align: center;
+  position: fixed;
+  width: 100%;
+}
+
+footer {
+  text-align: center;
+  position: relative;
+  width: 100%;
+}
+
+footer .links {
+  font-weight: 600;
+  font-size: 2rem;
+  place-self: center;
+  text-decoration: none;
+  margin: 0.5em 1em;
+  padding: 0.5 1em;
+  color: var(--text);
+}
+
+/* setup of the page */
+.title {
+  font-family: "Style Script", cursive;
+  text-decoration: none;
+  color: var(--title);
+  font-weight: 600;
+  font-size: 3.3rem;
+  padding: 0;
+  margin: 0;
+}
+
+.wrapper {
+  display: grid;
+  place-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--sidebar);
+  background-color: var(--foreground);
+}
+
+.pagination {
+  display: grid;
+  place-items: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  flex-wrap: nowrap;
+  overflow: auto;
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  background-color: var(--foreground);
+  border-radius: 7px;
+  box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
+}
+
+.card * {
+  width: 80%;
+  margin: 0.25em 0 0.25em 0;
+  padding: 0;
+  overflow-wrap: break-word;
+}
+
+.codehilite {
+  margin: 0.5em;
+  padding: 0.5em;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 100%;
+  background-color: var(--codeblock);
+  border: 2px solid var(--border);
+  border-radius: 7px;
+}
+
+.codehilite * {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+}
+
+.button {
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  background-color: var(--sauce);
+  color: var(--text);
+  padding: 0.5em 1em;
+  margin: 0.5em 1em;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.button:hover {
+  background-color: var(--sauce-hover);
+}
+
+.profile-img {
+  border-radius: 50%;
+  height: auto;
+  width: 50px;
+}
+
+/* navigation styling */
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+}
+
+nav {
+  text-align: left;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  margin-bottom: 3em;
+  margin-left: 0;
+}
+
+nav a {
+  opacity: 1;
+  position: relative;
+  color: var(--text);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: var(--text-hover);
+}
+
+nav a::before {
+  content: "";
+  display: block;
+  height: 5px;
+  background: black;
+  position: absolute;
+  top: -0.75em;
+  left: 0;
+  right: 0;
+  transform: scale(0, 1);
+  transition: transform ease-in-out 250ms;
+}
+
+nav a:hover::before {
+  transform: scale(1, 1);
+}
+
+nav ul li ul {
+  display: none;
+}
+
+nav ul li ul li {
+  display: none;
+}
+
+/* form formatting */
+.form {
+  grid-template-areas: "label box";
+  grid-template-columns: 25% 75%;
+  grid-auto-rows: auto;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"] select {
+  grid-area: box;
+  width: 100%;
+  padding: 1em 1.5em;
+  margin: 0.5em 0;
+  display: inline-block;
+  border: 1px solid var(--border);
+  border-radius: 0.25em;
+}
+
+input[type="submit"] {
+  grid-area: box;
+  width: 100%;
+  background-color: var(--sauce);
+  color: var(--text);
+  padding: 1em 1.5em;
+  margin: 0.5em 0;
+  border: none;
+  border-radius: 0.25em;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  grid-area: box;
+  background-color: var(--sauce-hover);
+}
+
+label {
+  grid-area: label;
+  padding: 1em 1em 1em 0;
+  display: inline-block;
+}
+
 /* css for mobile */
 @media screen and (max-width: 799px) {
   /* common setup design */
@@ -47,24 +302,7 @@
     display: flex;
   }
 
-  html,
-  body {
-    min-height: 100vh;
-    min-width: 100vw;
-    margin: 0;
-    background-image: url("bg.jpg");
-    background: var(--background);
-    background-blend-mode: multiply;
-    background-size: cover;
-    font-family: "Work Sans", sans-serif;
-    font-weight: 400;
-  }
-
   .container {
-    padding: 0;
-    margin: 0;
-    background-color: var(--background);
-    display: grid;
     grid-template-areas:
       "header"
       "main"
@@ -75,135 +313,28 @@
   main {
     grid-area: main;
     grid-template-rows: auto;
-    background-image: url("bg.jpg");
-    background-color: var(--background);
-    background-blend-mode: overlay;
-    background-size: cover;
   }
 
   header {
     grid-area: header;
     background: var(--nav-mobile);
-    text-align: center;
-    position: fixed;
-    width: 100%;
   }
 
   footer {
     grid-area: footer;
     background: var(--nav-mobile);
-    text-align: center;
-    position: relative;
-    width: 100%;
-  }
-
-  footer .links {
-    font-weight: 600;
-    font-size: 2rem;
-    place-self: center;
-    text-decoration: none;
-    margin: 0.5em 1em;
-    padding: 0.5 1em;
-    color: var(--text);
-  }
-
-  /* setup of the page */
-
-  .title {
-    font-family: "Style Script", cursive;
-    text-decoration: none;
-    color: var(--title);
-    font-weight: 600;
-    font-size: 3.3rem;
-    padding: 0;
-    margin: 0;
-  }
-
-  .wrapper {
-    display: grid;
-    place-items: center;
   }
 
   .content {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.1rem;
-    font-weight: 600;
     width: 80%;
-    margin: 1rem;
-    padding: 1rem;
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    color: var(--sidebar);
-    background-color: var(--foreground);
-  }
-
-  .pagination {
-    display: grid;
-    place-items: center;
   }
 
   .card {
-    display: flex;
-    flex-direction: column;
-    place-items: center;
-    flex-wrap: no-wrap;
-    overflow: auto;
     width: 80%;
-    margin: 1rem;
-    padding: 1rem;
-    border: 1px solid var(--border);
-    background-color: var(--foreground);
-    border-radius: 7px;
-    box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
   }
 
   .card * {
     width: 80%;
-    margin: 0.25em 0 0.25em 0;
-    padding: 0;
-    overflow-wrap: break-word;
-  }
-
-  .codehilite {
-    margin: 0.5em;
-    padding: 0.5em;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    max-width: 100%;
-    background-color: var(--codeblock);
-    border: 2px solid var(--border);
-    border-radius: 7px;
-  }
-
-  .codehilite * {
-    margin: 0;
-    padding: 0;
-    max-width: 100%;
-  }
-
-  .button {
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    background-color: var(--sauce);
-    color: var(--text);
-    padding: 0.5em 1em;
-    margin: 0.5em 1em;
-    border-radius: 4px;
-    display: inline-block;
-  }
-
-  .button:hover {
-    background-color: var(--sauce-hover);
-  }
-
-  .profile-img {
-    border-radius: 50%;
-    height: auto;
-    width: 50px;
   }
 
   /* sidebar design */
@@ -213,10 +344,6 @@
   }
 
   /* navigation styling */
-  nav a:hover {
-    color: var(--text-hover);
-  }
-
   .nav-toggle {
     display: none;
   }
@@ -258,7 +385,6 @@
 
   nav {
     position: absolute;
-    text-align: left;
     top: 100%;
     left: 0;
     background: var(--nav-mobile);
@@ -268,14 +394,6 @@
     transition: transform 400ms ease-in-out;
   }
 
-  nav ul {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
   nav li {
     margin-bottom: 1em;
     margin-left: 1em;
@@ -283,12 +401,6 @@
 
   nav a {
     opacity: 0;
-    position: relative;
-    color: var(--text);
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    font-weight: 600;
     transition: opacity 150ms ease-in-out;
   }
 
@@ -299,49 +411,6 @@
   .nav-toggle:checked ~ nav a {
     opacity: 1;
     transition: opacity 250ms ease-in-out 250ms;
-  }
-
-  /* form formatting */
-  .form {
-    grid-template-areas: "label box";
-    grid-template-columns: 25% 75%;
-    grid-auto-rows: auto;
-  }
-
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  input[type="number"] select {
-    grid-area: box;
-    width: 100%;
-    padding: 1em 1.5em;
-    margin: 0.5em 0;
-    display: inline-block;
-    border: 1px solid var(--border);
-    border-radius: 0.25em;
-  }
-
-  input[type="submit"] {
-    grid-area: box;
-    width: 100%;
-    background-color: var(--sauce);
-    color: var(--text);
-    padding: 1em 1.5em;
-    margin: 0.5em 0;
-    border: none;
-    border-radius: 0.25em;
-    cursor: pointer;
-  }
-
-  input[type="submit"]:hover {
-    grid-area: box;
-    background-color: var(--sauce-hover);
-  }
-
-  label {
-    grid-area: label;
-    padding: 1em 1em 1em 0;
-    display: inline-block;
   }
 }
 
@@ -356,18 +425,7 @@
     display: none;
   }
 
-  html,
-  body {
-    min-height: 100vh;
-    min-width: 100vw;
-    margin: 0;
-    font-family: "Work Sans", sans-serif;
-    font-weight: 400;
-  }
-
   .container {
-    padding: 0;
-    margin: 0;
     display: grid;
     grid-template-areas:
       "header header"
@@ -379,22 +437,14 @@
 
   main {
     grid-area: main;
-    grid-template-rows: auto;
-    background-image: url("bg.jpg");
-    background-color: var(--background);
-    background-blend-mode: overlay;
-    background-size: cover;
   }
 
   header {
     background: var(--nav-desktop);
     grid-area: header;
     display: grid;
-    position: fixed;
     grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
-    text-align: center;
     position: fixed;
-    width: 100%;
   }
 
   footer {
@@ -402,19 +452,6 @@
     grid-area: footer;
     display: grid;
     grid-auto-rows: auto;
-    position: relative;
-    text-align: center;
-    width: 100%;
-  }
-
-  footer .links {
-    font-weight: 600;
-    font-size: 2rem;
-    place-self: center;
-    text-decoration: none;
-    margin: 0.5em 1em;
-    padding: 0.5 1em;
-    color: var(--text);
   }
 
   /* page display */
@@ -422,102 +459,16 @@
     grid-column: 2 / 3;
   }
 
-  .wrapper {
-    display: grid;
-    place-items: center;
-  }
-
-  .pagination {
-    display: grid;
-    place-items: center;
-  }
-
   .card {
-    display: flex;
-    flex-direction: column;
-    place-items: center;
-    flex-wrap: no-wrap;
-    overflow: auto;
     width: 50%;
-    margin: 1rem;
-    padding: 1rem;
-    border: 1px solid var(--border);
-    background-color: var(--foreground);
-    border-radius: 7px;
-    box-shadow: 4px 8px 8px rgba(0, 0, 0, 0.25);
   }
 
   .card * {
-    width: 80%;
-    margin: 0.25em 0 0.25em 0;
-    padding: 0;
-    overflow-wrap: break-word;
-  }
-
-  .codehilite {
-    margin: 0.5em;
-    padding: 0.5em;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    max-width: 100%;
-    background-color: var(--codeblock);
-    border: 2px solid var(--border);
-    border-radius: 7px;
-  }
-
-  .codehilite * {
-    margin: 0;
-    padding: 0;
-    max-width: 100%;
-  }
-
-  .content {
-    display: flex;
-    flex-direction: column;
-    font-size: 1.1rem;
-    font-weight: 600;
     width: 50%;
-    margin: 1rem;
-    padding: 1rem;
-    border: 1px solid var(--border);
-    border-radius: 7px;
-    color: var(--sidebar);
-    background-color: var(--foreground);
-  }
-
-  .button {
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    background-color: var(--sauce);
-    color: var(--text);
-    padding: 0.5em 1em;
-    margin: 0.5em 1em;
-    border-radius: 4px;
-    display: inline-block;
-  }
-
-  .button:hover {
-    background-color: var(--sauce-hover);
-  }
-
-  .profile-img {
-    border-radius: 50%;
-    height: auto;
-    width: 50px;
   }
 
   .title {
-    font-family: "Style Script", cursive;
-    text-decoration: none;
     place-self: center;
-    color: var(--title);
-    font-weight: 600;
-    font-size: 3.3rem;
-    padding: 0;
-    margin: 0;
   }
 
   /* sidebar design */
@@ -572,7 +523,6 @@
 
   nav {
     position: relative;
-    text-align: left;
     transition: none;
     transform: scale(1, 1);
     background: none;
@@ -582,99 +532,5 @@
     display: flex;
     justify-content: flex;
     align-items: center;
-  }
-
-  nav ul {
-    display: flex;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  nav li {
-    margin-left: 3em;
-    margin-bottom: 0;
-  }
-
-  nav a {
-    opacity: 1;
-    position: relative;
-    color: var(--text);
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
-
-  nav a:hover {
-    color: var(--text-hover);
-  }
-
-  nav a::before {
-    content: "";
-    display: block;
-    height: 5px;
-    background: black;
-    position: absolute;
-    top: -0.75em;
-    left: 0;
-    right: 0;
-    transform: scale(0, 1);
-    transition: transform ease-in-out 250ms;
-  }
-
-  nav a:hover::before {
-    transform: scale(1, 1);
-  }
-
-  nav ul li ul {
-    display: none;
-  }
-
-  nav ul li ul li {
-    display: none;
-  }
-
-  /* form formatting */
-  .form {
-    grid-template-areas: "label box";
-    grid-template-columns: 25% 75%;
-    grid-auto-rows: auto;
-  }
-
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  input[type="number"] select {
-    grid-area: box;
-    width: 100%;
-    padding: 1em 1.5em;
-    margin: 0.5em 0;
-    display: inline-block;
-    border: 1px solid var(--border);
-    border-radius: 0.25em;
-  }
-
-  input[type="submit"] {
-    grid-area: box;
-    width: 100%;
-    background-color: var(--sauce);
-    color: var(--text);
-    padding: 1em 1.5em;
-    margin: 0.5em 0;
-    border: none;
-    border-radius: 0.25em;
-    cursor: pointer;
-  }
-
-  input[type="submit"]:hover {
-    grid-area: box;
-    background-color: var(--sauce-hover);
-  }
-
-  label {
-    grid-area: label;
-    padding: 1em 1em 1em 0;
-    display: inline-block;
   }
 }

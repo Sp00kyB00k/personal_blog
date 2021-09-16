@@ -2,14 +2,14 @@
   {% for comment in comments %}
   <li class="comment">
     <div class="card">
-      <div class="comment-date">{{ moment(comment.timestamp).fromNow() }}</div>
-      <div class="comment-author">
+      <div>{{ moment(comment.timestamp).fromNow() }}</div>
+      <div>
         <a
           href="{{ url_for('main.user', username=comment.author.username) }}"
           >{{ comment.author.username }}</a
         >
       </div>
-      <div class="comment-body">
+      <div>
         {% if comment.disabled %}
         <p><i>This comment has been disabled by a moderator.</i></p>
         {% endif %} {% if moderate or not comment.disabled %} {% if
@@ -23,13 +23,13 @@
       <br />
       {% if comment.disabled %}
       <a
-        class="btn btn-secondary btn-sm mt-1 mb-1"
+        class="button"
         href="{{ url_for('main.moderate_enable', id=comment.id, page=page) }}"
         >Enable</a
       >
       {% else %}
       <a
-        class="btn btn-secondary btn-sm mt-1 mb-1"
+        class="button"
         href="{{ url_for('main.moderate_disable', id=comment.id, page=page) }}"
         >Disable</a
       >
